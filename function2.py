@@ -2,9 +2,8 @@ import docx
 import docx2txt
 import re
 from datetime import datetime
-import nltk
-
-'''nltk.download('stopwords')
+'''import nltk
+nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('maxent_ne_chunker')
@@ -142,4 +141,4 @@ if __name__ == '__main__':
     txt=extract_text_from_docx(path)
     #get_data(txt)
     lst = process(txt)
-    print(extract_school(txt))
+
