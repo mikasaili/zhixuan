@@ -21,12 +21,6 @@ urlpatterns = [
     # path("admin/", admin.site.urls),
     path('about/', views.about),
     path('blog/', views.blog),
-    path('blog_single/', views.blog_single),
-    path('contact/', views.contact),
-    path('course/grid2/', views.course_grid2),
-    path('course/grid3/', views.course_grid3),
-    path('course/grid4/', views.course_grid4),
     path('index/', views.index),
-    path('pricing/', views.pricing),
     path('teachers/', views.teachers),
 ]
