@@ -75,7 +75,7 @@ def get_age(txt,lst):
                     age = datetime.now().year - int(birth[:4])
                     return age
             else:
-                AGE_REG = re.compile(r'\d.\d.岁')
+                AGE_REG = re.compile(r'\d.?\d.?岁')
                 age = re.findall(AGE_REG, txt)
                 a=''
                 try:
