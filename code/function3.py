@@ -71,7 +71,7 @@ def pie_age(res):
     plt.rcParams["font.sans-serif"] = ["Microsoft Yahei"]
     labels = ['30岁以下','30-40岁','40岁以上']
     X = [d_age[1],d_age[2],d_age[3]]
-    colors = ["#126bae", "#b7ae8f", "#8cc269"]
+    colors = ["#FF8C00", "#DAA520", "#FF7F50"]
     plt.title("目前招聘者年龄比例")
     plt.pie(X, labels=labels, colors=colors, autopct='%1.2f%%', pctdistance=0.8)
     plt.show()
@@ -81,7 +81,7 @@ def pie_degree(res):
     plt.rcParams["font.sans-serif"] = ["Microsoft Yahei"]
     labels = ['博士','硕士','本科','大专','专科','中专']
     X = [d_degree['博士'],d_degree['硕士'],d_degree['本科'],d_degree['大专'],d_degree['专科'],d_degree['中专']]
-    colors = ["#126bae", "#b7ae8f", "#8cc269","#41b349","#fa7e23","#feba07"]
+    colors = ["#FF8C00", "#DAA520", "#FF7F50","#FFA07A","#FF4500","#F0E68C"]
     plt.title("目前招聘者学历分布")
     plt.pie(X, labels=labels, colors=colors, autopct='%1.2f%%', pctdistance=0.8)
     plt.show()
@@ -92,5 +92,5 @@ if __name__ == '__main__':
     pathlist = eachFile(path)[:100]
 
     res = countinformation(pathlist)
-    pie_degree(res)
+    pie_age(res)
 
