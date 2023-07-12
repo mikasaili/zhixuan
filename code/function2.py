@@ -1,32 +1,7 @@
-import docx
 import docx2txt
 import re
 from datetime import datetime
-'''import nltk
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('maxent_ne_chunker')
-nltk.download('words')
-RESERVED_WORDS = [
-    'school',
-    'college',
-    'univers',
-    'academy',
-    'faculty',
-    'institute',
-    'faculdades',
-    'Schola',
-    'schule',
-    'lise',
-    'lyceum',
-    'lycee',
-    'polytechnic',
-    'kolej',
-    'ünivers',
-    'okul',
-]
-'''
+import jieba.posseg as pseg
 
 def process(txt):#return处理过后的词条
     lst=[]
@@ -47,16 +22,19 @@ def extract_text_from_docx(docx_path):#简历全部内容,返回str
 
 
 def extract_names(txt):
-    '''person_names = []
+    words = pseg.cut(txt)
+    candidates = []
+    for word, flag in words:
+        if flag == 'nr':
+            candidates.append(word)
+    NAME_REG = re.compile(r'\s[\u4e00-\u9fa5]{2,4}\s')
+    namelst = re.findall(NAME_REG,txt)
+    names = []
+    for i in candidates:
+        for j in namelst:
+            if i in j:
+                return j[1:-1]
 
-    for sent in nltk.sent_tokenize(txt):
-        for chunk in nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent))):
-            if hasattr(chunk, 'label') and chunk.label() == 'PERSON':
-                person_names.append(
-                    ' '.join(chunk_leave[0] for chunk_leave in chunk.leaves())
-                )
-
-    return person_names'''
 
 def extract_highest_degree(lst):
     degree_levels = ['博士','硕士','本科','大专','专科','中专']
@@ -67,36 +45,47 @@ def extract_highest_degree(lst):
     return None
 
 
-def extract_education(input_text):
-    '''organizations = []
+def extract_education(lst):
+    schools=['大学','学院','专业学校','中专','技术学校','中学']
+    for i in lst:
+       for j in schools:
+           SCHOOL = re.compile('\S{1,}'+j)
+           if re.findall(SCHOOL,i):
+               for k in i.split():
+                   if j in k:
+                       return k
 
-    # first get all the organization names using nltk
-    for sent in nltk.sent_tokenize(input_text):
-        for chunk in nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent))):
-            if hasattr(chunk, 'label') and chunk.label() == 'ORGANIZATION':
-                organizations.append(' '.join(c[0] for c in chunk.leaves()))
 
-    # we search for each bigram and trigram for reserved words
-    # (college, university etc...)
-    education = set()
-    for org in organizations:
-        for word in RESERVED_WORDS:
-            if org.lower().find(word) & gt;= 0:
-                education.add(org)
 
-    return education'''
-
-def get_age(txt):
+def get_age(txt,lst):
     AGE_REG = re.compile(r'年.*龄.*')
     age = re.findall(AGE_REG, txt)
     if age == []:
         AGE_REG = re.compile(r'出.*生.*')
         age = re.findall(AGE_REG, txt)
-        if age != []:
+        try:
             BIRTH_REG = re.compile(r'\d{4}.*\d{0,2}.*\d{0,2}')
             birth = re.findall(BIRTH_REG,age[0])
             age = datetime.now().year-int(birth[0][:4])
             return age
+        except:
+            for i in range(len(lst)):
+                if '出生'in lst[i]:
+                    birth = lst[i+1]
+                    age = datetime.now().year - int(birth[:4])
+                    return age
+            else:
+                AGE_REG = re.compile(r'\d.\d.岁')
+                age = re.findall(AGE_REG, txt)
+                a=''
+                try:
+                    for num in age[0]:
+                        if str(num).isdigit():
+                            a+=str(num)
+                    return int(a)
+                except: return None
+
+
     else:
         age_REG = re.compile(r'\d{2}')
         return re.findall(age_REG,age[0])
@@ -105,6 +94,8 @@ def get_data(txt):
     d=dict()
     lst = process(txt)
 
+    name = extract_names(txt)
+    d['姓名'] = name
 
     PHONE_REG = re.compile(r'[\+\(]?[1-9][0-9 .\\(\)]{8,}[0-9]')
     phone = re.findall(PHONE_REG, txt)
@@ -125,20 +116,20 @@ def get_data(txt):
             d['性别'] = '女'
 
 
-    age = (get_age(txt))
+    age = (get_age(txt,lst))
     d['年龄']  = age
 
     d['学历'] = extract_highest_degree(lst)
 
-
-    print(d)
-
+    d['毕业院校'] = extract_education(lst)
+    return d
 
 
 
 if __name__ == '__main__':
-    path='D:\\zhixuan\\dataset_CV\\dataset_CV\\CV\\1.docx'
+    path='D:\\zhixuan\\dataset_CV\\dataset_CV\\CV\\18.docx'
     txt=extract_text_from_docx(path)
-    #get_data(txt)
-    lst = process(txt)
+    print(get_data(txt))
+
+
 
