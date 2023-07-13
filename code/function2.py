@@ -21,6 +21,8 @@ def extract_text_from_docx(docx_path):#简历全部内容,返回str
     return None
 
 
+
+
 def extract_names(txt):
     words = pseg.cut(txt)
     candidates = []
@@ -55,7 +57,18 @@ def extract_education(lst):
                    if j in k:
                        return k
 
-
+def extract_position(txt):
+    REG = re.compile('求职'+'.*')
+    target = re.findall(REG,txt)
+    try:
+        s = target[0][5:]
+        s = s.replace('\n','')
+        if len(s)>15:
+            return None
+        else:
+            return s
+    except:
+        return None
 
 def get_age(txt,lst):
     AGE_REG = re.compile(r'年.*龄.*')
@@ -77,6 +90,7 @@ def get_age(txt,lst):
             else:
                 AGE_REG = re.compile(r'\d.?\d.?岁')
                 age = re.findall(AGE_REG, txt)
+
                 a=''
                 try:
                     for num in age[0]:
@@ -122,6 +136,8 @@ def get_data(txt):
     d['学历'] = extract_highest_degree(lst)
 
     d['毕业院校'] = extract_education(lst)
+
+    d['求职意向'] = extract_position(txt)
     return d
 
 
