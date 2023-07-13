@@ -83,14 +83,23 @@
 			<h1>智能化简历信息统计<span class="m_1">一个高效的展示化平台</span></h1>
 		</div>
 	</div>
-	
+	<!-- Add this code where you want to display the charts -->
+{#<img src="data:image/png;base64,{{ chart_degree }}" alt="Degree Distribution">#}
+{#<img src="data:image/png;base64,{{ chart_age }}" alt="Age Distribution">#}
+
+<!-- Add this code for the "One-Click Update" button -->
+{#    <div class="desc">#}
+{#        <h3><i class="fa fa-quote-left"></i> 一键更新</h3>#}
+{#    </div>#}
+
+
 	<div id="teachers" class="section wb">
         <div class="container" >
             <div class="row">
 				<div class="col-lg-6 col-md-6 col-12">
 					<div class="our-team">
 						<div class="team-img">
-							<img src="../static/images/team_01.png">
+							<img src="data:image/png;base64,{{ chart_degree }}" alt="Degree Distribution">
 						</div>
 						<div class="team-content">
 							<h3 class="title">学历分布</h3>
@@ -102,7 +111,7 @@
 				<div class="col-lg-6 col-md-6 col-12">
 					<div class="our-team">
 						<div class="team-img">
-							<img src="../static/images/team_02.png">
+							<img src="data:image/png;base64,{{ chart_age }}" alt="Age Distribution">
 						</div>
 						<div class="team-content">
 							<h3 class="title">年龄分布</h3>
@@ -111,8 +120,20 @@
 				</div>
             </div><!-- end row -->
         </div><!-- end container -->
-    </div><!-- end section -->	
-
+    </div><!-- end section -->
+    <style>
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+    </style>
+<div class="center">
+    <form action="/updatePies/" method="GET">
+        {% csrf_token %}
+        <button class="btn btn-light btn-radius btn-brd grd1" type="submit">一键更新</button>
+    </form>
+</div>
+    
     <footer class="footer">
         <div class="container">
             <div class="row">
