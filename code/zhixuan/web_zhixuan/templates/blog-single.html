@@ -130,16 +130,17 @@
                             <ul>
                                 <li>最后更新：12/Jul/2023 22:27:42</li>
                             </ul>
-							<form action="" method="post" enctype="multipart/form-data"><!-- {% csrf_token %}-->
-    						<input type="file" name="f1">
+                            <form action="/updateinfo/" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <div class="updateImg">
+        <img src="{{ account.photo.url }}" alt=""/></div>
 
-   							 <div id="overviews" class="section wb">
+    <input name="photo" type="file" id="exampleInputFile">
+            <div id="overviews" class="section wb">
        						 <div class="container">
             					</div><!-- end title -->
-									<button type="submit" class="btn btn-light btn-radius btn-brd grd1">
-										点此上传
-									</button>
-							</form>
+    <button id="photo" class="btn btn-light btn-radius btn-brd grd1" type="submit">点此上传</button>
+</form>
                         </div><!-- BUTTON BOX-->
                         </div><!--CONTENT BOX-->
                     </div>
