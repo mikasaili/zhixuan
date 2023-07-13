@@ -16,6 +16,11 @@ class zhixuanDB(models.Model):
 '''
 创建表
 '''
+class userPassword(models.Model):
+    name = models.CharField(verbose_name="name",max_length=32)
+    eemail = models.CharField(verbose_name="email",max_length=64)
+    telephone = models.CharField(verbose_name="telephone",max_length=13)
+    password = models.CharField(verbose_name="password",max_length=64)
 
 
 class Company(models.Model):  # 公司
