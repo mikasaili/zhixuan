@@ -1,9 +1,14 @@
+import base64
 import re
-
 from django.shortcuts import render, HttpResponse, redirect
-import pandas as pd
+
+from function3 import pie_degree, pie_age
 from web_zhixuan import models
 import function2, function1
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+import io
 
 name1 = ''
 
@@ -95,3 +100,74 @@ def addPos(request):
             i.candidatePos = ''
         i.save()
     return HttpResponse('成功')
+
+
+def updatePies(request):
+    res = []
+    d_sex = dict()
+    d_degree = dict()
+    d_age = dict()
+    d_sex['男'] = 0
+    d_sex['女'] = 0
+    d_sex['未填'] = 0
+    d_degree['博士'] = 0
+    d_degree['硕士'] = 0
+    d_degree['本科'] = 0
+    d_degree['大专'] = 0
+    d_degree['专科'] = 0
+    d_degree['中专'] = 0
+    d_degree['未知'] = 0
+    d_age[1] = 0
+    d_age[2] = 0
+    d_age[3] = 0
+    d_age['未知'] = 0
+    for i in models.Candidate.objects.all():
+        txt = i.candidateExp
+        d = function2.get_data(txt)  # func2中的
+        try:
+            d_sex[d['性别']] += 1
+        except:
+            d_sex['未填'] += 1
+        try:
+            d_degree[d['学历']] += 1
+        except:
+            d_degree['未知'] += 1
+        try:
+            if d['年龄'] < 30:
+                d_age[1] += 1
+            elif 30 <= d['年龄'] < 40:
+                d_age[2] += 1
+            else:
+                d_age[3] += 1
+        except:
+            d_age['未知'] += 1
+    res.append(d_age)
+    res.append(d_degree)
+    res.append(d_sex)
+
+    # Generate pie charts
+    fig_degree = Figure()
+    ax_degree = fig_degree.add_subplot(111)
+    pie_degree(res, ax_degree)
+    canvas_degree = FigureCanvas(fig_degree)
+    buf_degree = io.BytesIO()
+    canvas_degree.print_png(buf_degree)
+    plt.close(fig_degree)
+
+    fig_age = Figure()
+    ax_age = fig_age.add_subplot(111)
+    pie_age(res, ax_age)
+    canvas_age = FigureCanvas(fig_age)
+    buf_age = io.BytesIO()
+    canvas_age.print_png(buf_age)
+    plt.close(fig_age)
+
+    # Prepare chart data as base64 strings
+    chart_degree = base64.b64encode(buf_degree.getvalue()).decode('utf-8')
+    chart_age = base64.b64encode(buf_age.getvalue()).decode('utf-8')
+
+    context = {
+        'chart_degree': chart_degree,
+        'chart_age': chart_age,
+    }
+    return render(request, 'teachers.html', context)
