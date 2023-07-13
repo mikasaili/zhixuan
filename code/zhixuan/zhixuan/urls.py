@@ -31,5 +31,6 @@ urlpatterns = [
     path('teachers/', views.teachers),
     path('admin/', admin.site.urls),
     path('updateinfo/', views.updateinfo),
+    path('', views.index),
 ]
 
