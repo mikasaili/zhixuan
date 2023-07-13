@@ -3,13 +3,13 @@
 
     <!-- Basic -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
-   
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
- 
+
      <!-- Site Metas -->
-    <title>智选 - Intelligent Resume Parsing System</title>  
+    <title>SmartEDU - Education Responsive HTML5 Template</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -38,7 +38,7 @@
     <![endif]-->
 
 </head>
-<body class="host_version"> 
+<body class="host_version">
 
     <!-- LOADER -->
 	<div id="preloader">
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- END LOADER -->	
+	<!-- END LOADER -->
 
     <!-- Start header -->
 	<header class="top-navbar">
@@ -66,9 +66,9 @@
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item"><a class="nav-link" href=/contact/>首页</a></li>
 						<li class="nav-item"><a class="nav-link" href=/about/>岗位</a></li>
-						<li class="nav-item"><a class="nav-link" href=/teachers/>统计</a></li>
+						<li class="nav-item"><a class="nav-link" href=/Teachers/>统计</a></li>
 						<li class="nav-item"><a class="nav-link" href=/blog/>帮助</a></li>
-                        <li class="nav-item active"><a class="nav-link" href=/pricing/>个人主页</a></li>
+                        <li class="nav-item active"><a class="nav-link" href=/blog-single/>个人主页</a></li>
 					</ul>
 				</div>
 			</div>
@@ -122,7 +122,7 @@
                             <span class="heading">
                                 <h3>上传简历</h3>
                             </span>
-                        	<span class="price-value">
+                            <span class="price-value">
                                 <span>已收到</span>{{ candidate_count|safe }}
                                 <span class="month">份简历</span>
                                 <span>100份已解析</span>
@@ -132,7 +132,7 @@
                         <div class="pricingContent">
                             <i class="fa fa-briefcase"></i>
                             <ul>
-                                <li>最后更新：12/Jul/2023 22:27:42</li>
+                                <li>最后更新：14/Jul/2023 12:37:42</li>
                             </ul>
                             <form action="/updateinfo/" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
