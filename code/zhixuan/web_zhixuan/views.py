@@ -50,8 +50,9 @@ def updateinfo(request):
         # user = request.FILES.get('photo').name
         new_img = models.zhixuanDB(
             photo=request.FILES.get('photo'),  # 拿到图片
-           # user=request.FILES.get('photo').name # 拿到图片的名字
+           www=request.FILES.get('photo').name # 拿到图片的名字
         )
+        name1=request.FILES.get('photo').name
         new_img.save()  # 保存图片
         return HttpResponse('上传成功！')
 
