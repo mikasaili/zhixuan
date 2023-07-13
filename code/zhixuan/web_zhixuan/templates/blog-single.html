@@ -122,7 +122,11 @@
                             <span class="heading">
                                 <h3>上传简历</h3>
                             </span>
-                            <span class="price-value"><span>已收到</span>169<span class="month">份简历</span> <span>78份未处理</span><span>91份已解析</span></span>
+                        	<span class="price-value">
+                                <span>已收到</span>{{ candidate_count|safe }}
+                                <span class="month">份简历</span>
+                                <span>100份已解析</span>
+                            </span>
                         </div>
 
                         <div class="pricingContent">
