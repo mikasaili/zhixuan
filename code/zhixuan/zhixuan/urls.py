@@ -28,7 +28,8 @@ urlpatterns = [
     path('search/', views.search),
     path('updateinfo/', views.updateinfo),
     path('teachers/', views.teachers),
-    path('addPos/',views.addPos)
+    path('addPos/',views.addPos),
+    path('updatePies/', views.updatePies)
 
     #path('', views.index),
 ]
