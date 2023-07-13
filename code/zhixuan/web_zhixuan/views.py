@@ -12,6 +12,32 @@ def blog(request):
 
 
 def index(request):
+        if request.method == "POST":
+        if 'login_submit' in request.POST:
+            # 用户选择了登录
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+
+            # 在数据库中查询用户密码
+            user = models.userPassword.objects.get(name=username)
+            if user.password == password:
+                    # 用户名和密码匹配成功，跳转到 contact.html
+                return redirect("/contact/")
+            else:
+                return redirect("/index/")
+        elif 'register_submit' in request.POST:
+            # 用户选择了注册
+            username = request.POST.get("username")
+            email = request.POST.get("email")
+            telephone = request.POST.get("telephone")
+            password = request.POST.get("password")
+
+            # 创建新用户并保存到数据库
+            models.userPassword.objects.create(name=username, eemail=email, telephone=telephone, password=password)
+            return redirect("/contact/")
+    else:
+        # 处理 GET 请求，返回页面
+        return render(request, 'index.html')
     return render(request, "index.html")
 
 
