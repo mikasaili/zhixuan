@@ -11,7 +11,9 @@ import random
 class Company(models.Model):  # 公司
     companyName = models.CharField(max_length=32, primary_key=True)
 
-
+class zhixuanDB(models.Model):
+    photo = models.FileField(upload_to='files/')
+    
 class Candidate(models.Model):    # 应聘者
     candidateName = models.CharField(max_length=32, primary_key=True)
     candidateAge = models.IntegerField()
