@@ -3,11 +3,11 @@
 
     <!-- Basic -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
-   
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
- 
+
      <!-- Site Metas -->
     <title>智选 - Intelligent Resume Parsing System</title>
     <meta name="keywords" content="">
@@ -38,7 +38,7 @@
     <![endif]-->
 
 </head>
-<body class="host_version"> 
+<body class="host_version">
 
 	<!-- Modal -->
 	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -57,20 +57,21 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 					<div class="tab-pane active" id="Login">
-						<form role="form" class="form-horizontal">
+						<form role="form" class="form-horizontal" method="POST">
+                            {% csrf_token %}
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="email1" placeholder="用户名" type="text">
+									<input class="form-control" id="email1" name="username" placeholder="用户名" type="text">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="exampleInputPassword1" placeholder="密码" type="email">
+									<input class="form-control" id="exampleInputPassword1"  name="password" placeholder="密码" type="password">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-10">
-									<button type="submit" class="btn btn-light btn-radius btn-brd grd1" onclick="window.open(href=/contact/)">
+									<button type="submit" name="login_submit" class="btn btn-light btn-radius btn-brd grd1" onclick="window.open(href=/contact/)">
 										登录
 									</button>
 									<a class="for-pwd" href="javascript:;">忘记密码?</a>
@@ -79,31 +80,32 @@
 						</form>
 					</div>
 					<div class="tab-pane" id="Registration">
-						<form role="form" class="form-horizontal">
+						<form role="form" class="form-horizontal" method="POST">
+                            {% csrf_token %}
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" placeholder="用户名" type="text">
+									<input class="form-control" name="username" placeholder="用户名" type="text">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="email" placeholder="邮箱" type="email">
+									<input class="form-control" id="email" name="email" placeholder="邮箱" type="email">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="mobile" placeholder="手机号码" type="email">
+									<input class="form-control" id="mobile" name="telephone" placeholder="手机号码" type="text">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="password" placeholder="密码" type="password">
+									<input class="form-control" id="password" name="password" placeholder="密码" type="password">
 								</div>
 							</div>
-							<div class="row">							
+							<div class="row">
 								<div class="col-sm-10">
-									<button type="submit" class="btn btn-light btn-radius btn-brd grd1" onclick="window.open(href=/contact/)">
-										保存并登录
+									<button type="submit" name="register_submit" class="btn btn-light btn-radius btn-brd grd1" >
+										注册并登录
 									</button>
 									<button type="submit" class="btn btn-light btn-radius btn-brd grd1" onclick="location.href(href=/index/)">
 										取消</button>
@@ -125,8 +127,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- END LOADER -->	
-	
+	<!-- END LOADER -->
+
 	<!-- Start header -->
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -154,7 +156,7 @@
 		</nav>
 	</header>
 	<!-- End header -->
-	
+
 	<div id="carouselExampleControls" class="carousel slide bs-slider box-slider" data-ride="carousel" data-pause="hover" data-interval="false" >
 		<!-- Indicators -->
 		<ol class="carousel-indicators">
@@ -175,7 +177,7 @@
 											<a href="#" class="hover-btn-new"><span>开始体验</span></a>
 									</div>
 								</div>
-							</div><!-- end row -->            
+							</div><!-- end row -->
 						</div><!-- end container -->
 					</div>
 				</div><!-- end section -->
@@ -192,7 +194,7 @@
 											<a href="#" class="hover-btn-new"><span>开始体验</span></a>
 									</div>
 								</div>
-							</div><!-- end row -->            
+							</div><!-- end row -->
 						</div><!-- end container -->
 					</div>
 				</div><!-- end section -->
@@ -211,7 +213,7 @@
 			</a>
 		</div>
 	</div>
-	
+
     <div id="overviews" class="section wb">
         <div class="container">
             <div class="section-title row text-center">
@@ -220,7 +222,7 @@
                     <p class="lead">zhixuan-智选-zhixuan</p>
                 </div>
             </div><!-- end title -->
-        
+
             <div class="row align-items-center">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="message-box">
@@ -231,7 +233,7 @@
                         <a href="#" class="hover-btn-new orange"><span>查看更多</span></a>
                     </div><!-- end messagebox -->
                 </div><!-- end col -->
-				
+
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="post-media wow fadeIn">
                         <img src="../static/images/im3.jpg" alt="" class="img-fluid img-rounded">
