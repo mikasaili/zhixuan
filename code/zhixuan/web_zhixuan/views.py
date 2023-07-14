@@ -9,6 +9,7 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import io
 from django.shortcuts import render,HttpResponse,redirect
+from django.db import connection
 from web_zhixuan.models import candidate
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
