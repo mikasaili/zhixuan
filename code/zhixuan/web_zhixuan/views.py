@@ -38,7 +38,7 @@ def reg(request):
     rows = cursor.fetchall()
     for row in rows:
         print(row)
-    return render(request,'new.html',{"n":gangwei,"p":xueli,'data': rows})
+    return render(request,'about.html',{"n":gangwei,"p":xueli,'data': rows})
 
 # Create your views here.
 
