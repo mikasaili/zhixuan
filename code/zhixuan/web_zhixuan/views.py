@@ -41,6 +41,27 @@ def reg(request):
 
 # Create your views here.
 
+def tfidf_similarity(s1, s2):
+    def add_space(s):
+        return ' '.join(list(s))
+
+    # 将字中间加入空格
+    s1, s2 = add_space(s1), add_space(s2)
+    # 转化为TF矩阵
+    cv = TfidfVectorizer(tokenizer=lambda s: s.split())
+    corpus = [s1, s2]
+    vectors = cv.fit_transform(corpus).toarray()
+    # 计算TF系数
+    return np.dot(vectors[0], vectors[1]) / (norm(vectors[0]) * norm(vectors[1]))
+
+def match(txt,position,description):
+    REG = re.compile('求职' + '.*' + position)
+    target = re.findall(REG, txt)
+    if target:
+        tf = tfidf_similarity(description, txt)
+        return tf
+    else:
+        return -1
 
 def about(request):
     c = {}
