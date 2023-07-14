@@ -18,7 +18,9 @@ from django.urls import path
 from web_zhixuan import views
 
 urlpatterns = [
-    # path("admin/", admin.site.urls),
+    # path("admin/", admin.site.urls
+    path('reg/',views.reg,name='check'),
+    path('personcheck/', views.personcheck),
     path('about/', views.about),
     path('blog/', views.blog),
     path('blog_single/', views.blog_single),
