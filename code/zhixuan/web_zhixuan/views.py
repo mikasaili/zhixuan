@@ -1,7 +1,6 @@
 import base64
 import re
 from django.shortcuts import render, HttpResponse, redirect
-
 from function3 import pie_degree, pie_age
 from web_zhixuan import models
 import function2, function1
@@ -9,8 +8,14 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import io
+from django.shortcuts import render,HttpResponse,redirect
+from web_zhixuan.models import candidate
+from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy as np
+from scipy.linalg import nor
 
 name1 = ''
+
 
 
 # Create your views here.
