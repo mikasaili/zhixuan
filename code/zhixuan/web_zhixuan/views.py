@@ -16,7 +16,28 @@ from scipy.linalg import nor
 
 name1 = ''
 
-
+def personcheck(request):
+    return render(request, "personcheck.html")
+rows=()
+def reg(request):
+    gangwei=""
+    xueli = ""
+    age1 = 0
+    age2 = 0
+    gzjl = 0
+    if request.method == 'POST':
+        gangwei=request.POST.get('gangwei')
+        xueli=request.POST.get('xueli')
+        age1 = (int)(request.POST.get('age1'))
+        age2 = (int)(request.POST.get('age2'))
+        gzjl= (int)(request.POST.get('gzjl'))
+    cursor = connection.cursor()
+    #cursor.execute("select * from web_zhixuan_candidate where candidatepos='%s'" % gangwei)
+    cursor.execute("select * from web_zhixuan_candidate where candidateAge>=%d and candidateAge<%d and candidateEdu = '%s' and (candidateYearsOfWork >%d) and candidatePos = '%s'" % (age1,age2,xueli,gzjl,gangwei))
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    return render(request,'new.html',{"n":gangwei,"p":xueli,'data': rows})
 
 # Create your views here.
 
