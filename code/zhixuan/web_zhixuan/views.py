@@ -17,7 +17,36 @@ name1 = ''
 
 
 def about(request):
-    return render(request, "about.html")
+    c = {}
+    position1 = ""
+    description1 = ""
+    d = {}
+    a = dict()
+    if request.method == 'POST':
+        position = request.POST.get('position')
+        position1 = str(position)
+        description = request.POST.get('description')
+        description1 = str(description)
+        db = candidate.objects.all()
+        lst=[]
+        for person in db:
+            d['姓名'] = person.candidateName
+            d['年龄'] = person.candidateAge
+            d['性别'] = person.candidateSex
+            d['学历'] = person.candidateEdu
+            d['工作年限'] = person.candidateYearsOfWork
+            d['经历'] = person.candidateExp
+            #d['求职意向'] = person.
+            exp = person.candidateExp
+            tf = match(exp,position,description)
+            d['tf'] = tf
+            if tf >0:
+                lst.append([d,tf])
+        lst.sort(key = lambda x:x[1],reverse=True)
+        l = min(4,len(lst))
+        for i in range(l):
+            c['candidate'+str(i+1)] = lst[i]
+    return render(request,"about.html",{"n0":position1,"n1":c,'n2':description1})
 
 
 def blog(request):
