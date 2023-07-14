@@ -213,15 +213,68 @@
                     </div><!-- end messagebox -->
                 </div>
 
- 				<!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                    <div class="post-media wow fadeIn">
-                        <img src="images/about_02.jpg" alt="" class="img-fluid img-rounded">
-                    </div> --><!-- end media -->
-                <!-- </div> --><!-- end col -->
-			</div>
-        </div><!-- end container -->
-    </div><!-- end section -->
 
+		<div class="col-md-40 col-sm-12">
+		<div class="container text-center">
+            <div class="pricingTable pink">
+            <br>
+			<h1>精细查询<span class="m_1"></span></h1>
+         <div>
+</div>
+		</div>
+	</div>
+
+                <div class="col-md-40 col-sm-12">
+		<div class="container text-center">
+                        <div class="pricingTable-header">
+                            <span class="heading">
+    <form method="post" action="{% url 'check' %}">
+        {% csrf_token %}
+        <p>岗位</p>
+        <input type="text" name="gangwei" placeholder="请输入所需岗位"><br>
+        <p>学历</p>
+        <input type="text" name="xueli" placeholder="请输入学历"><br>
+        <p>最低年龄</p>
+        <input type="number" name="age1" placeholder="请输入年龄（xx岁以上）"><br>
+        <p>最高年龄</p>
+        <input type="number" name="age2" placeholder="请输入年龄（xx岁以下）"><br>
+        <p>最低年限</p>
+        <input type="number" name="gzjl" placeholder="请输入工作经验（年）"><br>
+<p> </p>
+        <input type="submit" class="btn btn-light btn-radius btn-brd grd1" value="提交"><br>
+
+    </form>
+</div>
+</div>
+</div>
+
+		<div class="col-md-40 col-sm-12">
+		<div class="container text-center">
+            <br>
+			<h1>筛选结果<span class="m_1">候选人信息</span></h1>
+         <div><h1>
+             {% for i in data%}
+             <span>{{i.0}}</span>
+             <span>{{i.1}}</span>
+             <span>{{i.2}}</span>
+             <span>{{i.3}}</span>
+             <span>{{i.4}}</span>
+             <span>{{i.6}}</span>
+             <a href="#" class="btn btn-light btn-radius btn-brd grd1" onclick="say()" ><span>查看</span></a>
+             <script>
+            function say(){
+                window.open("http://127.0.0.1:8000/personcheck/");
+            }
+        </script>
+             <br>
+             {%endfor%}
+        </h1> </div><!-- end <h4>{{data}}</h4>title --><div>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
 	<div class="hmv-box">
 		<div class="container">
 			<div class="row">
